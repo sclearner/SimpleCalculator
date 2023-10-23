@@ -6,19 +6,35 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/equation"
+    <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:autoSizeMinTextSize="72sp"
-        android:autoSizeTextType="uniform"
+        android:layout_height="wrap_content"
         android:background="@color/dark_gray"
-        android:gravity="end"
-        android:text="@string/result"
-        android:textIsSelectable="true"
-        android:textSize="80sp"
-        android:maxLines="1"
-        tools:targetApi="o" />
+        android:scrollbarAlwaysDrawHorizontalTrack="true"
+        android:scrollbarAlwaysDrawVerticalTrack="false"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:fillViewport="true"
+            android:paddingVertical="20dp">
+
+            <TextView
+                android:id="@+id/equation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoSizeMinTextSize="72sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="@string/result"
+                android:textIsSelectable="true"
+                android:textSize="80sp"
+                tools:targetApi="o" />
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"

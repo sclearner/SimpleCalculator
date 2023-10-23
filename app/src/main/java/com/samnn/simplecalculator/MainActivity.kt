@@ -163,16 +163,21 @@ class MainActivity : AppCompatActivity() {
         }
 
         setButtonListener(R.id.dot) {
-            equation.text = "${equation.text}."
-            if (newInput) newInput = false
+            if (newInput) {
+                equation.text = "0"
+                newInput = false
+            }
+            if (!equation.text.contains('.')) {
+                equation.text = "${equation.text}."
+            } else if (equation.text.endsWith('.')) equation.text =
+                equation.text.subSequence(0..<equation.text.length-1)
         }
 
         setButtonListener(R.id.sign) {
             if (equation.text.toString() != "0" && !newInput) run {
                 if (equation.text[0] == '-') {
                     equation.text = equation.text.subSequence(1, equation.text.length)
-                }
-                else {
+                } else {
                     equation.text = "-${equation.text}"
                 }
             }
@@ -181,8 +186,9 @@ class MainActivity : AppCompatActivity() {
 
         setButtonListener(R.id.equal) {
             if (expression != null) {
-                val df = DecimalFormat("0.######")
-                val result =  expression?.invoke(saved, equation.text.toString()) ?: Double.POSITIVE_INFINITY
+                val df = DecimalFormat("0.###############")
+                val result =
+                    expression?.invoke(saved, equation.text.toString()) ?: Double.POSITIVE_INFINITY
                 equation.text = if (result.isFinite()) df.format(result) else "Error"
                 expression = null
                 saved = null
@@ -193,7 +199,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setButtonListener(id: Int, function: () -> Unit = {}) {
         val button = findViewById<Button>(id)
-        button.setOnClickListener {function()}
+        button.setOnClickListener { function() }
     }
 
     private fun add(a: String?, b: String?): Double {
